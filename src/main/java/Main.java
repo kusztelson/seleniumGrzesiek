@@ -21,12 +21,11 @@ import java.util.List;
 
 public class Main {
     private static final String SAMPLE_CSV_FILE_PATH = System.getProperty("user.dir") +
-            "/src/main/resources/" +
             //"matematykaAdresKodInput.csv";
-            "chemiaAdresKod.csv";
+            "/input.csv";
     private static final String STRING_ARRAY_SAMPLE = System.getProperty("user.dir") +
             //"/matematykaAdresKodOutput"
-            "/chemiaAdresKodOutput"
+            "/output"
             + java.time.LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss"))
             + ".csv";
 
@@ -54,7 +53,12 @@ public class Main {
 
             Thread.sleep(10000);
         }
+        syncWait(10000);
         csvWriter.close();
+    }
+
+    private synchronized static void syncWait(int delay) throws InterruptedException {
+        if(delay > 0) Thread.sleep(delay);
     }
 
     private static void initCSVWriter() throws IOException {
